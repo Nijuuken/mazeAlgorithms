@@ -3,7 +3,7 @@ import time
 from collections import deque
 
 def breadthFirstSearch(myMaze):
-    startTime = time.time()
+    startTime = round(time.time()*1000)
     mazeBFS = copy.deepcopy(myMaze.maze)
     visited = set()
     queue = deque([(myMaze.startRow, myMaze.startCol, 0, [])])
@@ -33,7 +33,7 @@ def breadthFirstSearch(myMaze):
         if mazeBFS[currentRow][currentCol][0] == 'G':
             myMaze._solutionBFS = pathTaken
             myMaze.solPatLenBFS = pathLength
-            myMaze.executionTimeBFS = time.time() - startTime
+            myMaze.executionTimeBFS = round(time.time()*1000) - startTime
             myMaze.solvable = True
             return True
 
@@ -52,6 +52,6 @@ def breadthFirstSearch(myMaze):
         myMaze._nodeExpandBFS += 1
 
     # If the queue becomes empty and no solution is found
-    myMaze.executionTimeBFS = time.time() - startTime
+    myMaze.executionTimeBFS = round(time.time()*1000) - startTime
     myMaze.solvable = False
     return False
