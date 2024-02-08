@@ -8,146 +8,74 @@ from breadthFirstSearch import *
 from aStar import *
 
 #from displayMaze import *
+def loadMazeList(allMazes):
+    for i in range(10):
+        mazeInstance = Maze(*generateMaze())
+        allMazes.append(mazeInstance)
 
-# def breadthFirstSearch(row, col, graph):
-#     graphBFS = copy.deepcopy(graph)
-#     count = 0
-
-#     def countIt(row, col, graph, visited=set(), solutionPathLen=0, length=0):
-#         nonlocal count
-#         queue = deque([(row, col, solutionPathLen, length)])
-        
-#         while queue:
-#             row, col, solutionPathLen, length = queue.popleft()
-#             pos = (row, col)
-
-#             if pos in visited:
-#                 continue
-
-#             if (row < 0 or row >= len(graph) or col < 0 or col >= len(graph[row])):
-#                 continue
-
-#             if graph[row][col][0] == 'X':
-#                 continue
-
-#             count += 1
-#             visited.add(pos)
-#             graph[row][col][1] = length
-
-#             if graph[row][col][0] == 'G':
-#                 graph[row][col][0] = 'H'
-#                 #time.sleep(0.5)
-#                 displayMaze(graph)
-#                 return graph[row][col][1], True
-
-#             if graph[row][col][0] != 'S':
-#                 graph[row][col][0] = 'H'
-
-#             #time.sleep(0.5)
-#             displayMaze(graph)
-
-#             if graph[row][col][0] != 'S':
-#                 graph[row][col][0] = 'O'
-
-#             # Enqueue neighbors
-#             queue.append((row, col - 1, solutionPathLen, length + 1))
-#             queue.append((row - 1, col, solutionPathLen, length + 1))
-#             queue.append((row, col + 1, solutionPathLen, length + 1))
-#             queue.append((row + 1, col, solutionPathLen, length + 1))
-
-#         return solutionPathLen, False
-
-#     solutionPathLen, found = countIt(row, col, graphBFS)
-#     print("Number of Nodes Expanded: ", count)
-#     print("Solution Path Length: ", solutionPathLen)
+def getAvg(allMazes, methodName):
+    addAllNumbers = 0
+    for theMazes in allMazes:  # Iterate through allMazes
+        result = getattr(theMazes,methodName, None)
+        addAllNumbers += result
     
-#     if found:
-#         print("Breadth-First Search found the Goal!")
-#     else:
-#         print("Breadth-First Search did not find the Goal!")
+    if len(allMazes) > 0:
+        average = addAllNumbers / len(allMazes)
+        return average
+    else:
+        return None
 
-#     return count, solutionPathLen  
+
+def printHeader():
+    header = f"{'Run':^7} {'Algorithm':^15} {'Solution Path Length':^20} {'Nodes Expanded':^20} {'Execution Time (ms)':^20} {'Status':^20}"
+    print(header)
+
+def printDFSAvg(allMazes):
+    avg = f"{'Average':^7} {'DFS':^15}"
+    avg += f"{str(getAvg(allMazes,'solPatLenDFS')):^20}"
+    avg += f"{str(getAvg(allMazes,'nodeExpandDFS')):^24}"
+    avg += f"{str(getAvg(allMazes,'executionTimeDFS')):^19}"
+    #{'Solution Path Length':^20} {'Nodes Expanded':^20} {'Execution Time (ms)':^20} {'Status':^20}"
+    print(avg)
+
+def printBFSAvg(allMazes):
+    avg = f"{'Average':^7} {'BFS':^15}"
+    avg += f"{str(getAvg(allMazes,'solPatLenBFS')):^20}"
+    avg += f"{str(getAvg(allMazes,'nodeExpandBFS')):^24}"
+    avg += f"{str(getAvg(allMazes,'executionTimeBFS')):^19}"
+    #{'Solution Path Length':^20} {'Nodes Expanded':^20} {'Execution Time (ms)':^20} {'Status':^20}"
+    print(avg)
 
 
-# def aStar(startRow, startCol, endRow, endCol, graph):
-#     graphAStar = copy.deepcopy(graph)
-#     count = 0
+def gatherDFSData(allMazes):
+    for i in range(10):
+        passFail = depthFirstSearch(allMazes[i])
+        print(f"{str(i+1):^7} {'DFS':^15} {str(allMazes[i].solPatLenDFS):^20} {str(allMazes[i].nodeExpandDFS):^20} {str(round(allMazes[i].executionTimeDFS)):^20}" ,end=" ")
+        if passFail == True:
+            print(f"{'Pass':^20}")
+        else:
+            print(f"{'Fail':^20}")
+    printDFSAvg(allMazes)
 
-#     def distanceToGoal(row, col):
-#         return abs(row - endRow) + abs(col - endCol)
-
-#     def countIt(row, col, graph, visited=set(), solutionPathLen=0, length=0):
-#         nonlocal count, startRow, startCol, endRow, endCol
-#         priorityQueue = [(distanceToGoal(row, col), row, col, solutionPathLen, length)]
-
-#         while priorityQueue:
-#             _, row, col, solutionPathLen, length = heapq.heappop(priorityQueue)
-#             pos = (row, col)
-
-#             if pos in visited:
-#                 continue
-
-#             if row < 0 or row >= len(graph) or col < 0 or col >= len(graph[row]):
-#                 continue
-
-#             if graph[row][col][0] == 'X':
-#                 continue
-
-#             count += 1
-#             visited.add(pos)
-#             graph[row][col][1] = length
-#             #print(f"Distance from end: ({distanceToGoal(row, col)})")
-#             if row == endRow and col == endCol:
-#                 graph[row][col][0] = 'H'
-#                 #time.sleep(0.5)
-#                 displayMaze(graph)
-#                 return graph[row][col][1], True
-
-#             if graph[row][col][0] != 'S':
-#                 graph[row][col][0] = 'H'
-#                 #time.sleep(0.5)
-#                 displayMaze(graph)
-
-#             if graph[row][col][0] != 'S':
-#                 graph[row][col][0] = 'O'
-
-#             # Enqueue neighbors with priority based on A* formula (f = g + h)
-#             heapq.heappush(priorityQueue, (distanceToGoal(row, col - 1), row, col - 1, solutionPathLen + 1, length + 1))
-#             heapq.heappush(priorityQueue, (distanceToGoal(row - 1, col), row - 1, col, solutionPathLen + 1, length + 1))
-#             heapq.heappush(priorityQueue, (distanceToGoal(row, col + 1), row, col + 1, solutionPathLen + 1, length + 1))
-#             heapq.heappush(priorityQueue, (distanceToGoal(row + 1, col), row + 1, col, solutionPathLen + 1, length + 1))
-#             #print(priorityQueue)
-
-#         return solutionPathLen, False
-
-#     solutionPathLen, found = countIt(startRow, startCol, graphAStar)
-#     print("Number of Nodes Expanded: ", count)
-#     print("Solution Path Length: ", solutionPathLen)
-
-#     if found:
-#         print("A* Search found the Goal!")
-#     else:
-#         print("A* Search did not find the Goal!")
-
-#     return count, solutionPathLen
-
+def gatherBFSData(allMazes):
+    for i in range(10):
+        passFail = breadthFirstSearch(allMazes[i])
+        print(f"{str(i+1):^7} {'BFS':^15} {str(allMazes[i].solPatLenBFS):^20} {str(allMazes[i].nodeExpandBFS):^20} {str(round(allMazes[i].executionTimeBFS)):^20}" ,end=" ")
+        if passFail == True:
+            print(f"{'Pass':^20}")
+        else:
+            print(f"{'Fail':^20}")
+    printBFSAvg(allMazes)
 
 def main():
     nodeExpandDFS, solPatLenDFS, nodeExpandBFS, solPatLenBFS, nodeExpandA, solPatLenA = 0, 0, 0, 0, 0, 0
     allMazes = [] 
-    
-    for i in range(10):
-        mazeInstance = Maze(*generateMaze())
-        allMazes.append(mazeInstance)
-    for i in range(10):
-        passFail = depthFirstSearch(allMazes[i])
-    breadthFirstSearch(allMazes[0])
+    loadMazeList(allMazes)
+    printHeader()
+    gatherDFSData(allMazes)
+    gatherBFSData(allMazes)
+
     aStar(allMazes[0])
     #solPatLenDFS, nodeExpandBFS, solPatLenBFS, nodeExpandA, and solPatLenA
-        
-    #time.sleep(5)
-    #nodeExpandBFS, solPatLenBFS = breadthFirstSearch(startRow, startCol, newMaze)
-    #nodeExpandAStar, solPatLenAStar = aStar(startRow, startCol,goalRow,goalCol, newMaze)
-
-     
+         
 main()

@@ -44,7 +44,7 @@ def aStar(myMaze):
 
         myMaze.getVisualizationA(mazeAStar)
         mazeAStar[currentRow][currentCol][0] = 'O'
-        myMaze.displayIteration("visualA", myMaze.nodeExpandA)
+        #myMaze.displayIteration("visualA", myMaze.nodeExpandA)
 
         # Enqueue neighbors with priority based on A* formula (f = g + h)
         heapq.heappush(priorityQueue, (heuristic(currentRow, currentCol - 1), currentRow, currentCol - 1, pathLength + 1, pathTaken + [(currentRow, currentCol)]))

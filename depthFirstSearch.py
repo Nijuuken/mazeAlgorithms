@@ -4,7 +4,7 @@ import time
 from maze import *
 
 def depthFirstSearch(myMaze):
-    startTime = time.time()
+    startTime = round(time.time()*1000)
     mazeDFS = copy.deepcopy(myMaze.maze)
     visited = set()
     stack = [(myMaze.startRow, myMaze.startCol, 0,[])]
@@ -27,7 +27,7 @@ def depthFirstSearch(myMaze):
             myMaze._solutionDFS = pathTaken
             myMaze.solPatLenDFS = pathLength
             #print("Goal was found")
-            myMaze.executionTimeDFS = time.time() - startTime
+            myMaze.executionTimeDFS = round(time.time()*1000) - startTime
             myMaze.solvable = True
             return True
         mazeDFS[currentRow][currentCol][0] = 'H'
@@ -42,7 +42,7 @@ def depthFirstSearch(myMaze):
 
         myMaze._nodeExpandDFS += 1
     #print("Goal was not found")
-    myMaze.executionTimeDFS = time.time() - startTime
+    myMaze.executionTimeDFS = round(time.time()*1000) - startTime
     # If the stack becomes empty and no solution is found
     myMaze.solvable = False
     return False
