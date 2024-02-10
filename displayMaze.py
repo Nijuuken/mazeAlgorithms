@@ -17,7 +17,7 @@ def createFoundPathGraph(maze,foundPath):
     return newMaze
 
 def displayMazeAnimation(searchAlg, foundPath, mazeName,solvable):
-    if solvable:
+    if solvable and not searchAlg[-1][foundPath[-1][0]][foundPath[-1][1]] == 'H':
         solutionMaze = createFoundPathGraph(searchAlg[0],foundPath)
         for i in range(len(solutionMaze)):
             searchAlg.append(solutionMaze[i])
