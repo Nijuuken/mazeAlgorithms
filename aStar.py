@@ -3,7 +3,7 @@ import time
 import heapq
 
 def aStar(myMaze):
-    startTime = time.time()
+    startTime = round(time.time()*1000)
     mazeAStar = copy.deepcopy(myMaze.maze)
     visited = set()
     count = 0
@@ -35,7 +35,7 @@ def aStar(myMaze):
         if currentRow == myMaze.goalRow and currentCol == myMaze.goalCol:
             myMaze._solutionA = pathTaken
             myMaze.solPatLenA = pathLength
-            myMaze.executionTimeA = time.time() - startTime
+            myMaze.executionTimeA = round(time.time()*1000) - startTime
             myMaze.solvable = True
             return True
 
@@ -54,6 +54,6 @@ def aStar(myMaze):
 
         myMaze._nodeExpandA += 1
 
-    myMaze.executionTimeA = time.time() - startTime
+    myMaze.executionTimeA = round(time.time()*1000) - startTime
     myMaze.solvable = False
     return False

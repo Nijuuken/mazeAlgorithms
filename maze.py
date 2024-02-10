@@ -12,7 +12,7 @@ class Maze:
         self._solPatLenA = 0
         self._executionTimeDFS = 0 
         self._executionTimeBFS = 0 
-        self._executionTimeAFS = 0 
+        self._executionTimeA = 0 
         self._solvable = True
         self._visualDFS = []
         self._visualBFS = []
@@ -108,12 +108,12 @@ class Maze:
         self._executionTimeBFS = newExecutionTimeBFS
 
     @property
-    def executionTimeAFS(self):
-        return self._executionTimeAFS
+    def executionTimeA(self):
+        return self._executionTimeA
 
-    @executionTimeAFS.setter
-    def executionTimeAFS(self, newExecutionTimeAFS):
-        self._executionTimeAFS = newExecutionTimeAFS
+    @executionTimeA.setter
+    def executionTimeA(self, newexecutionTimeA):
+        self._executionTimeA = newexecutionTimeA
 
     @property
     def solvable(self):
