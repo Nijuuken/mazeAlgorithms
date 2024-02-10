@@ -9,7 +9,6 @@ def aStar(myMaze):
     count = 0
 
     def heuristic(row, col):
-        # A simple heuristic function, you might want to adjust it
         return abs(row - myMaze.goalRow) + abs(col - myMaze.goalCol)
 
     priorityQueue = [(heuristic(myMaze.startRow, myMaze.startCol), myMaze.startRow, myMaze.startCol, 0, [])]
@@ -46,14 +45,14 @@ def aStar(myMaze):
         mazeAStar[currentRow][currentCol][0] = 'O'
         #myMaze.displayIteration("visualA", myMaze.nodeExpandA)
 
-        # Enqueue neighbors with priority based on A* formula (f = g + h)
-        heapq.heappush(priorityQueue, (heuristic(currentRow, currentCol - 1), currentRow, currentCol - 1, pathLength + 1, pathTaken + [(currentRow, currentCol)]))
-        heapq.heappush(priorityQueue, (heuristic(currentRow - 1, currentCol), currentRow - 1, currentCol, pathLength + 1, pathTaken + [(currentRow, currentCol)]))
-        heapq.heappush(priorityQueue, (heuristic(currentRow, currentCol + 1), currentRow, currentCol + 1, pathLength + 1, pathTaken + [(currentRow, currentCol)]))
-        heapq.heappush(priorityQueue, (heuristic(currentRow + 1, currentCol), currentRow + 1, currentCol, pathLength + 1, pathTaken + [(currentRow, currentCol)]))
+        heapq.heappush(priorityQueue, (heuristic(currentRow, currentCol - 1), currentRow, currentCol - 1, pathLength + 1, pathTaken + [(currentRow, currentCol-1)]))
+        heapq.heappush(priorityQueue, (heuristic(currentRow - 1, currentCol), currentRow - 1, currentCol, pathLength + 1, pathTaken + [(currentRow-1, currentCol)]))
+        heapq.heappush(priorityQueue, (heuristic(currentRow, currentCol + 1), currentRow, currentCol + 1, pathLength + 1, pathTaken + [(currentRow, currentCol+1)]))
+        heapq.heappush(priorityQueue, (heuristic(currentRow + 1, currentCol), currentRow + 1, currentCol, pathLength + 1, pathTaken + [(currentRow+1, currentCol)]))
 
         myMaze._nodeExpandA += 1
 
     myMaze.executionTimeA = round(time.time()*1000) - startTime
+    myMaze._solutionA = pathTaken
     myMaze.solvable = False
     return False

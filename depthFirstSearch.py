@@ -25,24 +25,28 @@ def depthFirstSearch(myMaze):
             continue
         if mazeDFS[currentRow][currentCol][0] == 'G':
             myMaze._solutionDFS = pathTaken
+            # for x in myMaze._solutionDFS:
+            #     print(x)
             myMaze.solPatLenDFS = pathLength
-            #print("Goal was found")
             myMaze.executionTimeDFS = round(time.time()*1000) - startTime
             myMaze.solvable = True
+            mazeDFS[currentRow][currentCol][0] = 'H'
+            myMaze.getVisualizationDFS(mazeDFS)
+            #myMaze.displayIteration("visualDFS",myMaze.nodeExpandDFS)
             return True
         mazeDFS[currentRow][currentCol][0] = 'H'
         myMaze.getVisualizationDFS(mazeDFS)
         mazeDFS[currentRow][currentCol][0] = 'O'
         #myMaze.displayIteration("visualDFS",myMaze.nodeExpandDFS)
         #print(f"Adding ({currentCol},{currentRow-1}),({currentCol-1},{currentRow}),({currentCol},{currentRow+1}), and ({currentCol+1},{currentRow}) to the stack")
-        stack.append((currentRow,currentCol+1, pathLength + 1, pathTaken + [(currentRow-1,currentCol,)]))
-        stack.append((currentRow+1,currentCol, pathLength + 1, pathTaken + [(currentRow-1,currentCol,)]))
-        stack.append((currentRow,currentCol-1, pathLength + 1, pathTaken + [(currentRow-1,currentCol,)]))
-        stack.append((currentRow-1,currentCol, pathLength + 1, pathTaken + [(currentRow-1,currentCol,)]))
+        stack.append((currentRow,currentCol+1, pathLength + 1, pathTaken + [(currentRow,currentCol+1)]))
+        stack.append((currentRow+1,currentCol, pathLength + 1, pathTaken + [(currentRow+1,currentCol)]))
+        stack.append((currentRow,currentCol-1, pathLength + 1, pathTaken + [(currentRow,currentCol-1)]))
+        stack.append((currentRow-1,currentCol, pathLength + 1, pathTaken + [(currentRow-1,currentCol)]))
 
         myMaze._nodeExpandDFS += 1
     #print("Goal was not found")
     myMaze.executionTimeDFS = round(time.time()*1000) - startTime
-    # If the stack becomes empty and no solution is found
+    myMaze._solutionDFS = pathTaken
     myMaze.solvable = False
     return False

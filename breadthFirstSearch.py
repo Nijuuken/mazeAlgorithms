@@ -35,6 +35,9 @@ def breadthFirstSearch(myMaze):
             myMaze.solPatLenBFS = pathLength
             myMaze.executionTimeBFS = round(time.time()*1000) - startTime
             myMaze.solvable = True
+            mazeBFS[currentRow][currentCol][0] = 'H'
+            myMaze.getVisualizationBFS(mazeBFS)  
+            #myMaze.displayIteration("visualBFS", myMaze.nodeExpandBFS)
             return True
 
         # Update maze visualization and expand the queue
@@ -44,14 +47,15 @@ def breadthFirstSearch(myMaze):
         #myMaze.displayIteration("visualBFS", myMaze.nodeExpandBFS)
 
         # Append adjacent positions to the queue
-        queue.append((currentRow, currentCol + 1, pathLength + 1, pathTaken + [(currentRow, currentCol)]))
-        queue.append((currentRow + 1, currentCol, pathLength + 1, pathTaken + [(currentRow, currentCol)]))
-        queue.append((currentRow, currentCol - 1, pathLength + 1, pathTaken + [(currentRow, currentCol)]))
-        queue.append((currentRow - 1, currentCol, pathLength + 1, pathTaken + [(currentRow, currentCol)]))
+        queue.append((currentRow, currentCol + 1, pathLength + 1, pathTaken + [(currentRow, currentCol+1)]))
+        queue.append((currentRow + 1, currentCol, pathLength + 1, pathTaken + [(currentRow+1, currentCol)]))
+        queue.append((currentRow, currentCol - 1, pathLength + 1, pathTaken + [(currentRow, currentCol-1)]))
+        queue.append((currentRow - 1, currentCol, pathLength + 1, pathTaken + [(currentRow-1, currentCol)]))
 
         myMaze._nodeExpandBFS += 1
 
     # If the queue becomes empty and no solution is found
     myMaze.executionTimeBFS = round(time.time()*1000) - startTime
+    myMaze._solutionBFS = pathTaken
     myMaze.solvable = False
     return False

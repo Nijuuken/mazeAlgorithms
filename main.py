@@ -6,5 +6,6 @@ def main():
     loadMazeList(allMazes)
     gatherDFSData(allMazes)
     gatherBFSData(allMazes)
-    gatherA(allMazes)    
+    gatherA(allMazes)
+    displayMaze(allMazes)
 main()

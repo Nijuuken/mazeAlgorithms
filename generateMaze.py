@@ -1,4 +1,5 @@
 import random
+import sys
 
 def generateRandomNumber():
     return random.randint(0, 9)
