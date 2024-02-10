@@ -57,12 +57,16 @@ def printAAvg(allMazes):
 def gatherDFSData(allMazes):
     printHeader()
     for i in range(10):
-        passFail = depthFirstSearch(allMazes[i])
-        print(f"{str(i+1):^7} {'DFS':^15} {str(allMazes[i].solPatLenDFS):^20} {str(allMazes[i].nodeExpandDFS):^20} {str(round(allMazes[i].executionTimeDFS)):^20}" ,end=" ")
-        if passFail == True:
-            print(f"{'Pass':^20}")
+        passed = depthFirstSearch(allMazes[i])
+        if passed == True:
+            passed = "Pass"
         else:
-            print(f"{'Fail':^20}")
+            passed = "Fail"
+        print(f"{str(i+1):^7} {'DFS':^15} {str(allMazes[i].solPatLenDFS):^20} {str(allMazes[i].nodeExpandDFS):^20} {str(round(allMazes[i].executionTimeDFS)):^20} {passed:^20}")
+        # if passFail == True:
+        #     print(f"{'Pass':^20}")
+        # else:
+        #     print(f"{'Fail':^20}")
     printDFSAvg(allMazes)
 
 def gatherBFSData(allMazes):
