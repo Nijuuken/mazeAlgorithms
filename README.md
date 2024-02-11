@@ -31,8 +31,7 @@ The program is organized into several files, each serving a specific purpose:
 
 The program relies on the following Python libraries:
 
-- `matplotlib`: Used for maze visualization and animatio[Uploading generateMaze.py…]()
-ns.
+- `matplotlib`: Used for maze visualization and animation.
 - `numpy`: Used for array operations in the visualization process.
 
 To install the required dependencies, use the following commands:
