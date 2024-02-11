@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project was created for my 2024 Winter Semester of Introduction to AI course. The program is designed to solve mazes using three different search algorithms: Depth First Search (DFS), Breadth First Search (BFS), and A*. The program generates random mazes, applies the search algorithms, and provides visualizations and statistics about the solution paths.
+This project was created to solve mazes using three different search algorithms: Depth First Search (DFS), Breadth First Search (BFS), and A*. The program generates random mazes, applies the search algorithms, and provides visualizations and statistics about the solution paths.
 
 ## Files and Structure
 
