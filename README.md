@@ -4,22 +4,6 @@
 
 This project was created to solve mazes using three different search algorithms: Depth First Search (DFS), Breadth First Search (BFS), and A*. The program generates random mazes, applies the search algorithms, and provides visualizations and statistics about the solution paths.
 
-## Files and Structure
-
-The program is organized into several files, each serving a specific purpose:
-
-1. **main.py**: The main script that orchestrates the execution of the program.
-
-2. **maze.py**: Defines the `Maze` class representing the maze structure.
-
-3. **aStar.py, breadthFirstSearch.py, depthFirstSearch.py**: Implementations of the A*, BFS, and DFS search algorithms, respectively.
-
-4. **displayMaze.py**: Contains functions for visualizing the maze and the search process using matplotlib.
-
-5. **generateMaze.py**: Generates random mazes with a start, goal, and obstacles.
-
-6. **printResults.py**: Handles the execution of the search algorithms, prints results, and calculates averages.
-
 # Useage
 
 1. Run the main.py script.
