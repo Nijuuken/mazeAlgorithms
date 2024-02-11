@@ -95,7 +95,8 @@ def displayMaze(allMazes):
             case "a":
                 print(f"A*\n")
                 displayMazeAnimation(allMazes[arrayNumber-1]._visualA,allMazes[arrayNumber-1]._solutionA,"Array #" + str(arrayNumber) + ": A*",allMazes[arrayNumber-1]._solvable)       
-
+            case "exit":
+                exit
             
 
         
